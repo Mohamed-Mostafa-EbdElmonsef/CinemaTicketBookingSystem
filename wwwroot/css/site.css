@@ -1,0 +1,67 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background-color: #f5f6fa;
+}
+
+.movie-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.movie-card img {
+    height: 320px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: #fff;
+    padding: 60px 0;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 30px;
+}
+
+.badge-status-nowshowing { background-color: #28a745; }
+.badge-status-comingsoon { background-color: #ffc107; color: #212529; }
+.badge-status-ended { background-color: #6c757d; }
+
+.admin-sidebar {
+    min-height: calc(100vh - 56px);
+    background-color: #1e2a38;
+}
+
+.admin-sidebar .nav-link {
+    color: #cfd8e3;
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
+.admin-sidebar .nav-link:hover,
+.admin-sidebar .nav-link.active {
+    background-color: #2f4257;
+    color: #fff;
+}
+
+.stat-card {
+    border-radius: 14px;
+    color: #fff;
+    padding: 22px;
+}
+
+.thumb-sm {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}

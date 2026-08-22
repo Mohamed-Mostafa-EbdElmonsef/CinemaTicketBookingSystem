@@ -1,0 +1,89 @@
+@{
+    ViewData["Title"] = "الرئيسية";
+    var recentBookings = ViewBag.RecentBookings as List<Booking>;
+    var latestMovies = ViewBag.LatestMovies as List<Movie>;
+}
+
+<h2 class="mb-4"><i class="bi bi-house-door-fill"></i> نظرة عامة</h2>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-2-4 col-md-2 col-sm-4">
+        <div class="stat-card" style="background:#4e73df;">
+            <div class="fs-2 fw-bold">@ViewBag.MoviesCount</div>
+            <div>أفلام</div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <div class="stat-card" style="background:#1cc88a;">
+            <div class="fs-2 fw-bold">@ViewBag.CinemasCount</div>
+            <div>سينمات</div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <div class="stat-card" style="background:#f6c23e;">
+            <div class="fs-2 fw-bold">@ViewBag.ActorsCount</div>
+            <div>ممثلون</div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <div class="stat-card" style="background:#e74a3b;">
+            <div class="fs-2 fw-bold">@ViewBag.CategoriesCount</div>
+            <div>تصنيفات</div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-4">
+        <div class="stat-card" style="background:#36b9cc;">
+            <div class="fs-2 fw-bold">@ViewBag.BookingsCount</div>
+            <div>حجوزات</div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header fw-bold"><i class="bi bi-ticket-perforated-fill"></i> أحدث الحجوزات</div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead><tr><th>العميل</th><th>الفيلم</th><th>الإجمالي</th></tr></thead>
+                    <tbody>
+                        @if (recentBookings != null)
+                        {
+                            @foreach (var b in recentBookings)
+                            {
+                                <tr>
+                                    <td>@b.CustomerName</td>
+                                    <td>@b.Movie?.Name</td>
+                                    <td>@b.TotalPrice.ToString("0.00") ج.م</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header fw-bold"><i class="bi bi-film"></i> أحدث الأفلام</div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead><tr><th>الاسم</th><th>التصنيف</th><th>السينما</th></tr></thead>
+                    <tbody>
+                        @if (latestMovies != null)
+                        {
+                            @foreach (var m in latestMovies)
+                            {
+                                <tr>
+                                    <td>@m.Name</td>
+                                    <td>@m.Category?.Name</td>
+                                    <td>@m.Cinema?.Name</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+bin/
+obj/
+*.user
+.vs/
+wwwroot/uploads/**/*.png
+wwwroot/uploads/**/*.jpg
+wwwroot/uploads/**/*.jpeg

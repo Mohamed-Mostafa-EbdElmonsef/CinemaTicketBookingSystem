@@ -1,0 +1,11 @@
+@model Movie
+@{ ViewData["Title"] = "حذف فيلم"; }
+
+<h2 class="mb-4 text-danger"><i class="bi bi-trash"></i> تأكيد الحذف</h2>
+<div class="card shadow-sm p-4" style="max-width:500px;">
+    <p>هل أنت متأكد أنك تريد حذف الفيلم: <strong>@Model.Name</strong>؟</p>
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+        <button type="submit" class="btn btn-danger">نعم، احذف</button>
+        <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+    </form>
+</div>

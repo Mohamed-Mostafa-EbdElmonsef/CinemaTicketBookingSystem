@@ -1,0 +1,17 @@
+@model Booking
+@{ ViewData["Title"] = "تفاصيل الحجز"; }
+
+<h2 class="mb-4"><i class="bi bi-ticket-perforated-fill"></i> تفاصيل الحجز #@Model.Id</h2>
+
+<div class="card shadow-sm p-4" style="max-width:600px;">
+    <table class="table">
+        <tr><th>الفيلم</th><td>@Model.Movie?.Name</td></tr>
+        <tr><th>اسم العميل</th><td>@Model.CustomerName</td></tr>
+        <tr><th>الهاتف</th><td>@Model.Phone</td></tr>
+        <tr><th>البريد الإلكتروني</th><td>@Model.Email</td></tr>
+        <tr><th>عدد المقاعد</th><td>@Model.NumberOfSeats</td></tr>
+        <tr><th>الإجمالي</th><td>@Model.TotalPrice.ToString("0.00") ج.م</td></tr>
+        <tr><th>تاريخ الحجز</th><td>@Model.BookingDate.ToString("yyyy/MM/dd hh:mm tt")</td></tr>
+    </table>
+    <a class="btn btn-secondary" asp-action="Index">رجوع</a>
+</div>

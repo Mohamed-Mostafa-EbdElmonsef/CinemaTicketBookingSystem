@@ -1,0 +1,55 @@
+@model List<Movie>
+@{
+    ViewData["Title"] = "الأفلام";
+    var categories = ViewBag.Categories as List<Category>;
+    int? selectedCategoryId = ViewBag.SelectedCategoryId;
+    string? search = ViewBag.Search;
+}
+
+<h2 class="mb-4"><i class="bi bi-film"></i> جميع الأفلام</h2>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-5">
+        <input type="text" name="search" value="@search" class="form-control" placeholder="ابحث عن فيلم..." />
+    </div>
+    <div class="col-md-4">
+        <select name="categoryId" class="form-select" asp-items="@(new SelectList(categories, "Id", "Name", selectedCategoryId))">
+            <option value="">-- كل التصنيفات --</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> بحث</button>
+    </div>
+</form>
+
+<div class="row g-4">
+    @if (!Model.Any())
+    {
+        <p class="text-muted">لا توجد أفلام مطابقة.</p>
+    }
+    @foreach (var movie in Model)
+    {
+        <div class="col-md-3 col-sm-6">
+            <div class="card movie-card">
+                <img src="@(string.IsNullOrEmpty(movie.MainImg) ? "https://placehold.co/400x600?text=No+Image" : movie.MainImg)" alt="@movie.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@movie.Name</h5>
+                    <p class="mb-1">
+                        @{
+                            var badgeClass = movie.Status switch
+                            {
+                                MovieStatus.NowShowing => "badge-status-nowshowing",
+                                MovieStatus.ComingSoon => "badge-status-comingsoon",
+                                _ => "badge-status-ended"
+                            };
+                        }
+                        <span class="badge @badgeClass">@movie.Status.GetDisplayName()</span>
+                    </p>
+                    <p class="text-muted small mb-1">@movie.Category?.Name | @movie.Cinema?.Name</p>
+                    <p class="fw-bold text-primary">@movie.Price.ToString("0.00") ج.م</p>
+                    <a class="btn btn-primary btn-sm w-100" asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">التفاصيل والحجز</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

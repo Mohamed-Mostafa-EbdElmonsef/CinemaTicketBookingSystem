@@ -1,0 +1,66 @@
+@model List<Movie>
+@{
+    ViewData["Title"] = "الرئيسية";
+    var comingSoon = ViewBag.ComingSoon as List<Movie>;
+    var categories = ViewBag.Categories as List<Category>;
+}
+
+<div class="hero-section text-center">
+    <h1 class="display-5 fw-bold"><i class="bi bi-film"></i> احجز تذكرتك الآن</h1>
+    <p class="lead">أحدث الأفلام في سينماتك المفضلة بضغطة زر</p>
+    <a class="btn btn-lg btn-warning fw-bold" asp-controller="Movies" asp-action="Index">تصفح كل الأفلام</a>
+</div>
+
+@if (categories != null && categories.Any())
+{
+    <div class="mb-4 d-flex flex-wrap gap-2 justify-content-center">
+        @foreach (var cat in categories)
+        {
+            <a class="btn btn-outline-dark btn-sm" asp-controller="Movies" asp-action="Index" asp-route-categoryId="@cat.Id">
+                @cat.Name
+            </a>
+        }
+    </div>
+}
+
+<h3 class="mb-3"><i class="bi bi-play-circle-fill text-success"></i> يُعرض الآن</h3>
+<div class="row g-4 mb-5">
+    @if (!Model.Any())
+    {
+        <p class="text-muted">لا توجد أفلام تُعرض حالياً.</p>
+    }
+    @foreach (var movie in Model)
+    {
+        <div class="col-md-3 col-sm-6">
+            <div class="card movie-card">
+                <img src="@(string.IsNullOrEmpty(movie.MainImg) ? "https://placehold.co/400x600?text=No+Image" : movie.MainImg)" alt="@movie.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@movie.Name</h5>
+                    <p class="text-muted small mb-1">@movie.Category?.Name | @movie.Cinema?.Name</p>
+                    <p class="fw-bold text-primary">@movie.Price.ToString("0.00") ج.م</p>
+                    <a class="btn btn-primary btn-sm w-100" asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">التفاصيل والحجز</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (comingSoon != null && comingSoon.Any())
+{
+    <h3 class="mb-3"><i class="bi bi-hourglass-split text-warning"></i> قريباً</h3>
+    <div class="row g-4 mb-5">
+        @foreach (var movie in comingSoon)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="card movie-card">
+                    <img src="@(string.IsNullOrEmpty(movie.MainImg) ? "https://placehold.co/400x600?text=No+Image" : movie.MainImg)" alt="@movie.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@movie.Name</h5>
+                        <p class="text-muted small mb-1">@movie.DateTime.ToString("yyyy/MM/dd")</p>
+                        <a class="btn btn-outline-primary btn-sm w-100" asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">التفاصيل</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

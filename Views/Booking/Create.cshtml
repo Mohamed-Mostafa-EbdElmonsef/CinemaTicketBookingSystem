@@ -1,0 +1,51 @@
+@model Booking
+@{
+    ViewData["Title"] = "حجز تذكرة";
+    var movie = ViewBag.Movie as Movie;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm p-4">
+            <h3 class="mb-3"><i class="bi bi-ticket-perforated-fill text-success"></i> حجز تذكرة</h3>
+            <h5 class="text-muted">@movie?.Name</h5>
+            <p>السعر: <strong>@movie?.Price.ToString("0.00") ج.م</strong> للتذكرة الواحدة</p>
+            <hr />
+
+            <form asp-controller="Booking" asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="MovieId" />
+
+                <div class="mb-3">
+                    <label asp-for="CustomerName" class="form-label"></label>
+                    <input asp-for="CustomerName" class="form-control" />
+                    <span asp-validation-for="CustomerName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Phone" class="form-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="NumberOfSeats" class="form-label"></label>
+                    <input asp-for="NumberOfSeats" type="number" min="1" max="20" class="form-control" />
+                    <span asp-validation-for="NumberOfSeats" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100"><i class="bi bi-check-circle"></i> تأكيد الحجز</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

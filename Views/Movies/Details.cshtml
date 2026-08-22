@@ -1,0 +1,52 @@
+@model Movie
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <img src="@(string.IsNullOrEmpty(Model.MainImg) ? "https://placehold.co/500x700?text=No+Image" : Model.MainImg)"
+             class="img-fluid rounded shadow" alt="@Model.Name" />
+
+        @if (Model.SubImages != null && Model.SubImages.Any())
+        {
+            <div class="d-flex flex-wrap gap-2 mt-3">
+                @foreach (var img in Model.SubImages)
+                {
+                    <img src="@img.ImagePath" class="thumb-sm rounded" alt="صورة إضافية" />
+                }
+            </div>
+        }
+    </div>
+    <div class="col-md-8">
+        <h2 class="fw-bold">@Model.Name</h2>
+        <p>
+            <span class="badge bg-secondary">@Model.Category?.Name</span>
+            <span class="badge bg-info text-dark">@Model.Cinema?.Name</span>
+            <span class="badge bg-dark">@Model.DateTime.ToString("yyyy/MM/dd - hh:mm tt")</span>
+        </p>
+        <p class="lead">@Model.Des</p>
+
+        @if (Model.MovieActors != null && Model.MovieActors.Any())
+        {
+            <h5 class="mt-4">الممثلون</h5>
+            <div class="d-flex flex-wrap gap-3">
+                @foreach (var ma in Model.MovieActors)
+                {
+                    <div class="text-center">
+                        <img src="@(string.IsNullOrEmpty(ma.Actor?.Img) ? "https://placehold.co/80x80?text=%20" : ma.Actor!.Img)"
+                             class="rounded-circle thumb-sm" alt="@ma.Actor?.Name" />
+                        <p class="small mb-0">@ma.Actor?.Name</p>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="card mt-4 p-3 shadow-sm" style="max-width: 350px;">
+            <h4 class="text-primary fw-bold">@Model.Price.ToString("0.00") ج.م / للتذكرة</h4>
+            <a class="btn btn-success btn-lg mt-2" asp-controller="Booking" asp-action="Create" asp-route-movieId="@Model.Id">
+                <i class="bi bi-ticket-perforated-fill"></i> احجز الآن
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+@model List<Booking>
+@{ ViewData["Title"] = "الحجوزات"; }
+
+<h2 class="mb-4"><i class="bi bi-ticket-perforated-fill"></i> الحجوزات</h2>
+
+<table class="table table-striped bg-white shadow-sm align-middle">
+    <thead>
+        <tr><th>#</th><th>الفيلم</th><th>العميل</th><th>الهاتف</th><th>المقاعد</th><th>الإجمالي</th><th>تاريخ الحجز</th><th>إجراءات</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Movie?.Name</td>
+                <td>@item.CustomerName</td>
+                <td>@item.Phone</td>
+                <td>@item.NumberOfSeats</td>
+                <td>@item.TotalPrice.ToString("0.00") ج.م</td>
+                <td>@item.BookingDate.ToString("yyyy/MM/dd hh:mm tt")</td>
+                <td>
+                    <a class="btn btn-sm btn-info text-white" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline" onsubmit="return confirm('هل أنت متأكد من حذف هذا الحجز؟');">
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

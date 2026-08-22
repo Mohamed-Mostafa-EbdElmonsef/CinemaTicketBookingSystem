@@ -1,0 +1,25 @@
+@model Cinema
+@{ ViewData["Title"] = "إضافة سينما"; }
+
+<h2 class="mb-4"><i class="bi bi-plus-circle"></i> إضافة سينما</h2>
+<div class="card shadow-sm p-4" style="max-width:500px;">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label"></label>
+            <input asp-for="Address" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">صورة السينما</label>
+            <input type="file" name="imgFile" class="form-control" accept="image/*" />
+        </div>
+        <button type="submit" class="btn btn-success">حفظ</button>
+        <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+    </form>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
